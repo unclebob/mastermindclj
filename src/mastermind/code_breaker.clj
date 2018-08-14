@@ -18,11 +18,13 @@
 
 (defn next-guess [last-guess past-guesses]
   (loop [guess (inc-guess last-guess)]
-    (let [past-guess (first past-guesses)]
-      (if (= (cm/score guess (first past-guess))
-             (second past-guess))
-        guess
-        (recur (inc-guess guess))))))
+    (if (= guess [0 0 0 0])
+      :error
+      (let [past-guess (first past-guesses)]
+        (if (= (cm/score guess (first past-guess))
+               (second past-guess))
+          guess
+          (recur (inc-guess guess)))))))
 
 (defn break-code [last-guess past-guesses]
   (if (nil? last-guess)
