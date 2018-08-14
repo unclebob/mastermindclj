@@ -20,8 +20,9 @@
   (loop [guess (inc-guess last-guess)]
     (if (= guess [0 0 0 0])
       :error
-      (let [past-guess (first past-guesses)]
-        (if (= (cm/score guess (first past-guess))
+      (let [past-guess (first past-guesses)
+            score (cm/score guess (first past-guess))]
+        (if (= score
                (second past-guess))
           guess
           (recur (inc-guess guess)))))))
