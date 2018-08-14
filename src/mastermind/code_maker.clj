@@ -16,11 +16,10 @@
 
 (defn over-count [code guess]
   (let [code-values (set code)]
-    (reduce +
-            (filter pos?
-                    (map #(- (count-of % guess) (count-of % code))
-                         code-values)))
-    ))
+    (->> code-values
+         (map #(- (count-of % guess) (count-of % code)))
+         (filter pos?)
+         (reduce +))))
 
 (defn score [code guess]
   (let [p (position-matches code guess)
