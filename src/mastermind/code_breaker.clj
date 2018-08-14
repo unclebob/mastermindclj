@@ -10,7 +10,10 @@
    (rem n 6)])
 
 (defn inc-guess [guess]
-  (let [guess-number (guess-to-number guess)]))
+  (->> guess
+       (guess-to-number)
+       (inc)
+       (number-to-guess)))
 
-(defn break-code [past-guesses]
-  [0 0 0 0])
+  (defn break-code [past-guesses]
+    [0 0 0 0])

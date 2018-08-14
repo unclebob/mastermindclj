@@ -26,9 +26,14 @@
     (number-to-guess (dec (* 6 6 6 6))) => [5 5 5 5]
     )
 
-  (future-fact
+  (fact
     "increment guess"
-    (inc-guess [0 0 0 0]) => [0 0 0 1])
+    (inc-guess [0 0 0 0]) => [0 0 0 1]
+    (inc-guess [0 0 0 5]) => [0 0 1 0]
+    (inc-guess [0 0 5 5]) => [0 1 0 0]
+    (inc-guess [0 5 5 5]) => [1 0 0 0]
+    (inc-guess [5 5 5 5]) => [0 0 0 0]
+    )
 
   (fact
     "initial guess"
