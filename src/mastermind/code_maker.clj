@@ -6,5 +6,6 @@
             (map #(= %1 %2) code guess))))
 
 (defn score [code guess]
-  [(position-matches code guess)]
+  [(position-matches code guess)
+   0]
   )
