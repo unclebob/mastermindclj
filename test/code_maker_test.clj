@@ -41,3 +41,14 @@
     )
 
   )
+
+(fact
+  "Guesses with some position and some value matches"
+  (score [1 2 3 4] [1 2 4 3]) => [2 2])
+
+(fact
+  "Confound 1.  If there are duplicate colours in the guess,
+  they cannot all be awarded a key peg unless they correspond
+  to the same number of duplicate colours in the hidden code."
+  (score [1 2 3 4] [3 3 3 4]) => [2 0]
+  )
