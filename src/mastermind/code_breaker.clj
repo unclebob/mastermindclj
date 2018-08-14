@@ -16,12 +16,15 @@
        (inc)
        (number-to-guess)))
 
-  (defn break-code [last-guess past-guesses]
-    (if (nil? last-guess)
-      [0 0 0 0]
-      (loop [guess (inc-guess last-guess)]
-        (if (= (cm/score guess (first (first past-guesses)))
-               (second (first past-guesses)))
-          guess
-          (recur (inc-guess guess))
-          ))))
+(defn next-guess [last-guess past-guesses]
+  (loop [guess (inc-guess last-guess)]
+    (let [past-guess (first past-guesses)]
+      (if (= (cm/score guess (first past-guess))
+             (second past-guess))
+        guess
+        (recur (inc-guess guess))))))
+
+(defn break-code [last-guess past-guesses]
+  (if (nil? last-guess)
+    [0 0 0 0]
+    (next-guess last-guess past-guesses)))
