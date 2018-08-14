@@ -37,11 +37,13 @@
 
   (fact
     "initial guess"
-    (break-code []) => [0 0 0 0])
+    (break-code nil []) => [0 0 0 0])
 
-  (future-fact
-    "Walk through solution of code [1 2 3 4]"
-    (break-code [[[0 0 0 0]
-                  (cm/score [1 2 3 4] [0 0 0 0])]]) => [0 0 0 1])
+  (fact
+    "first step for code [1 2 3 4]"
+    (break-code
+      [0 0 0 0]
+      [[[0 0 0 0] [0 0]]]) => [1 1 1 1]
+    )
 
   )

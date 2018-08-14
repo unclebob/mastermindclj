@@ -15,5 +15,7 @@
        (inc)
        (number-to-guess)))
 
-  (defn break-code [past-guesses]
-    [0 0 0 0])
+  (defn break-code [last-guess past-guesses]
+    (if (nil? last-guess)
+      [0 0 0 0]
+      [1 1 1 1]))
