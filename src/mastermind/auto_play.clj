@@ -4,6 +4,7 @@
     [mastermind.code-maker :as cm]))
 
 (defn random-code []
+  (cb/number-to-guess (rand-int (dec (* 6 6 6 6))))
   )
 
 (defn auto-play []
@@ -13,6 +14,4 @@
             score (cm/score code guess)]
         (if (= score [4 0])
           n
-          (recur (inc n) (conj past-scores [guess score]) guess))
-        )))
-  )
+          (recur (inc n) (conj past-scores [guess score]) guess))))))
