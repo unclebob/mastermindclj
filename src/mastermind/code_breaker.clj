@@ -16,17 +16,20 @@
        (inc)
        (number-to-guess)))
 
-(defn next-guess [last-guess past-guesses]
+(defn guess-matches-past-scores [guess past-scores]
+  (every? identity (for [past-score past-scores]
+                     (= (cm/score guess (first past-score))
+                        (second past-score)))))
+
+(defn next-guess [last-guess past-scores]
   (loop [guess (inc-guess last-guess)]
     (if (= guess [0 0 0 0])
       :error
-      (if (every? identity (for [past-guess past-guesses]
-                             (= (cm/score guess (first past-guess))
-                                (second past-guess))))
+      (if (guess-matches-past-scores guess past-scores)
         guess
         (recur (inc-guess guess))))))
 
-  (defn break-code [last-guess past-guesses]
-    (if (nil? last-guess)
-      [0 0 0 0]
-      (next-guess last-guess past-guesses)))
+(defn break-code [last-guess past-scores]
+  (if (nil? last-guess)
+    [0 0 0 0]
+    (next-guess last-guess past-scores)))
