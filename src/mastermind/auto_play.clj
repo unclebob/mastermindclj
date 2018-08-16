@@ -15,3 +15,18 @@
         (if (= score [4 0])
           n
           (recur (inc n) (conj past-scores [guess score]) guess))))))
+
+(def square #(* % %))
+
+(defn mean [x]
+  (/ (reduce + x) (count x)))
+
+(defn sigma [x]
+  (let [mn (mean x)]
+    (Math/sqrt
+      (/ (reduce #(+ %1 (square (- %2 mn))) 0 x)
+         (dec (count x))))))
+
+(defn expected-turns [n]
+  (let [scores (for [x (repeat n nil)] (auto-play))]
+    [(double (mean scores)) (sigma scores)]))
