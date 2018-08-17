@@ -7,14 +7,17 @@
   (cb/number-to-guess (rand-int (dec (* 6 6 6 6))))
   )
 
-(defn auto-play []
-  (let [code (random-code)]
-    (loop [n 1 past-scores [] last-guess nil]
-      (let [guess (cb/break-code last-guess past-scores)
-            score (cm/score code guess)]
-        (if (= score [4 0])
-          n
-          (recur (inc n) (conj past-scores [guess score]) guess))))))
+(defn auto-play
+  ([]
+   (auto-play cb/break-code-seq))
+  ([strategy]
+   (let [code (random-code)]
+     (loop [n 1 past-scores [] last-guess nil]
+       (let [guess (strategy last-guess past-scores)
+             score (cm/score code guess)]
+         (if (= score [4 0])
+           n
+           (recur (inc n) (conj past-scores [guess score]) guess)))))))
 
 (def square #(* % %))
 
@@ -27,8 +30,8 @@
       (/ (reduce #(+ %1 (square (- %2 mn))) 0 x)
          (dec (count x))))))
 
-(defn expected-turns [n]
-  (let [scores (sort (for [x (repeat n nil)] (auto-play)))]
+(defn analyze-strategy [strategy n]
+  (let [scores (sort (for [x (repeat n nil)] (auto-play strategy)))]
     {:mean (double (mean scores))
      :sigma (sigma scores)
      :min (first scores)

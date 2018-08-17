@@ -15,7 +15,7 @@
     (provided
       (cm/score [0 0 0 0] [0 0 0 0]) => [4 0])
     (provided
-      (cb/break-code nil []) => [0 0 0 0]))
+      (cb/break-code-seq nil []) => [0 0 0 0]))
 
   (fact
     "If code is [0 0 0 1] should take two tries."
