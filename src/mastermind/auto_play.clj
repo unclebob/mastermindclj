@@ -28,5 +28,11 @@
          (dec (count x))))))
 
 (defn expected-turns [n]
-  (let [scores (for [x (repeat n nil)] (auto-play))]
-    [(double (mean scores)) (sigma scores)]))
+  (let [scores (sort (for [x (repeat n nil)] (auto-play)))]
+    {:mean (double (mean scores))
+     :sigma (sigma scores)
+     :min (first scores)
+     :max (last scores)
+     :median (nth scores (int (/ (count scores) 2)))
+     :hist (map count (partition-by identity scores))
+     }))
