@@ -12,12 +12,12 @@
    (auto-play cb/break-code-seq))
   ([strategy]
    (let [code (random-code)]
-     (loop [n 1 past-scores [] last-guess nil]
-       (let [guess (strategy last-guess past-scores)
+     (loop [n 1 past-scores [] starting-guess nil]
+       (let [guess (strategy starting-guess past-scores)
              score (cm/score code guess)]
          (if (= score [4 0])
            n
-           (recur (inc n) (conj past-scores [guess score]) guess)))))))
+           (recur (inc n) (conj past-scores [guess score]) (cb/inc-guess guess))))))))
 
 (def square #(* % %))
 
@@ -37,5 +37,9 @@
      :min (first scores)
      :max (last scores)
      :median (nth scores (int (/ (count scores) 2)))
-     :hist (map count (partition-by identity scores))
-     }))
+     :hist (map count (partition-by identity scores))}))
+
+(defn analyze-strategies [n]
+  {:seq (analyze-strategy cb/break-code-seq n)
+   :3x2 (analyze-strategy cb/break-code-3x2 n)
+   :double-rainbow (analyze-strategy cb/break-code-double-rainbow n)})
