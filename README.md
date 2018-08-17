@@ -1,4 +1,9 @@
 # mastermind
+This project is used in Clean Code E54 on cleancoders.com.
+
+It plays the old logic game called "Master Mind".  
+
+------
 
 The project uses [Midje](https://github.com/marick/Midje/).
 
