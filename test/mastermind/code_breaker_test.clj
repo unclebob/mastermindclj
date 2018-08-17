@@ -32,7 +32,13 @@
     (inc-guess [0 0 0 5]) => [0 0 1 0]
     (inc-guess [0 0 5 5]) => [0 1 0 0]
     (inc-guess [0 5 5 5]) => [1 0 0 0]
-    (inc-guess [5 5 5 5]) => [0 0 0 0]
+    (inc-guess [5 5 5 5]) => :overflow
+    )
+
+  (fact ;This was an experiment to make sure that past guesses cannot be repeated.
+    "next-guess will not return a previous guess"
+    (next-guess [0 0 0 0]
+                [[[0 0 0 1] [3 1]]]) =not=> [0 0 0 1]
     )
 
   (fact
